@@ -1,4 +1,5 @@
 <div class='mt-4'>
+    <a href="/me/trash/courses">Thùng rác</a>
     <h3>Khóa học của tôi</h3>
     <table class='table mt-4'>
         <thead>
@@ -24,9 +25,11 @@
                             class='btn btn-link'
                             data-bs-toggle='modal'
                             data-bs-target='#exampleModal'
-                            data-bs-id="{{this._id}}"
+                            data-bs-id='{{this._id}}'
                         >Xóa</a></td>
                 </tr>
+            {{else}}
+                <td>Bạn chưa đăng khóa học nào.<a href='/courses/create'>Đăng khóa học</a></td>
             {{/each}}
         </tbody>
     </table>
@@ -58,26 +61,24 @@
                     class='btn btn-secondary'
                     data-bs-dismiss='modal'
                 >Không</button>
-                <button id="btn-delete-course" type='button' class='btn btn-danger'>Có</button>
+                <button id='btn-delete-course' type='button' class='btn btn-danger'>Có</button>
             </div>
         </div>
     </div>
 </div>
-<form method='POST'  id="formDelete"></form>
+<form method='POST' id='formDelete'></form>
 <script>
-        const exampleModal = document.getElementById('exampleModal')
-        let courseId;
-         const formDelete = document.getElementById('formDelete')
-
-        exampleModal.addEventListener('show.bs.modal', function (event) { 
-            const button = event.relatedTarget 
-            courseId = button.getAttribute('data-bs-id')
-           
-         })
-         const btnDeleteCourse = document.getElementById('btn-delete-course')
-            btnDeleteCourse.onclick = function(){
-                formDelete.action = '/courses/'+ courseId +'?_method=DELETE' // khong  viết ở thằng trên cái form delete vì nó đâu có trong vòng for để lấy course.id đâu
-                    formDelete.submit()
-                 
+    
+    const exampleModal = document.getElementById('exampleModal') 
+    let courseId; 
+    const formDelete = document.getElementById('formDelete') 
+    exampleModal.addEventListener('show.bs.modal', function(event) 
+         {
+             const button = event.relatedTarget 
+             courseId = button.getAttribute('data-bs-id') })
+             const btnDeleteCourse = document.getElementById('btn-delete-course') 
+             btnDeleteCourse.onclick = function(){ 
+            formDelete.action = '/courses/'+ courseId +'?_method=DELETE' // khong viết ở thẳng trên cái form delete vì nó đâu có trong vòng for để lấy course.id đâu 
+            formDelete.submit()
             }
 </script>

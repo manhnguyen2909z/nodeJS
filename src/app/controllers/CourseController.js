@@ -22,7 +22,7 @@ class CourseController {
         formData.img = `https://i.ytimg.com/vi/${formData.videoId}/hqdefault.jpg`;
         const course = new Course(formData);
         course.save().then(() => {
-            res.redirect('/courses/manh');
+            res.redirect('/me/stored/courses'); // lu du lieu ve db
         });
     }
     // [GET] courses/:id/editcourses
@@ -42,10 +42,21 @@ class CourseController {
             .catch(next);
     }
     delete(req, res, next){
-        Course.deleteOne({ _id: req.params.id })
+        Course.delete({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch(next)
     }
+    restore(req, res, next){
+        Course.restore({ _id: req.params.id })
+        .then(() => res.redirect('back'))
+        .catch(next)
+    }
+    deleteForce(req, res, next){
+        Course.deleteOne({ _id: req.params.id })
+        .then(() => res.redirect('back'))
+        .catch(next)
+    }
+
 }
 
 module.exports = new CourseController();
